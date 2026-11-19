@@ -123,12 +123,11 @@ main:focus { outline: none; }
     font-size: 1.05rem;
     letter-spacing: 0.01em;
 }
-/* stesso disegno di icons/favicon.svg, con i token del tema */
-/* prompt da terminale: lo stesso disegno di icons/favicon.svg, con i token del tema */
+/* nota a margine: lo stesso disegno di icons/favicon.svg, con i token del tema */
 .nav__mark { width: 22px; height: 22px; stroke-width: 2.4; color: var(--text); }
-.nav__cursor { fill: var(--accent); stroke: none; animation: cursor 1.1s steps(1) 4 both; }
-.nav__logo:hover .nav__cursor { animation: cursor 1.1s steps(1) infinite; }
-@keyframes cursor { 50% { opacity: 0; } }
+.nav__note { fill: var(--accent); stroke: none; transition: transform 0.3s ease; transform-origin: 15.5px 9px; }
+.nav__logo:hover .nav__note { transform: translateY(5px); }
+@media (prefers-reduced-motion: reduce) { .nav__note { transition: none; } }
 
 .nav__links { display: flex; align-items: center; gap: 1.1rem; }
 .nav__btn {
@@ -203,11 +202,12 @@ main {
 .display {
     font-family: var(--syne);
     font-weight: 700;
-    font-size: clamp(3.4rem, 18vw, 7.5rem);
+    /* 16vw: "a margine" resta su una riga anche a 320px */
+    font-size: clamp(3rem, 16vw, 7.5rem);
     line-height: 0.92;
     letter-spacing: -0.045em;
 }
-.display span { display: block; }
+.display span { display: block; white-space: nowrap; }
 .lede {
     max-width: 42ch;
     margin-top: 1.6rem;

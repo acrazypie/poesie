@@ -62,7 +62,6 @@
     }
 
     const pad = (n) => String(n).padStart(2, "0");
-    const count = (n) => (n === 1 ? "1 poesia" : n + " poesie");
     const href = (p) => "?p=" + encodeURIComponent(p.slug);
 
     function el(tag, cls, text) {
@@ -360,7 +359,7 @@
     function ready(list) {
         poems = list;
         bySlug = new Map(poems.map((p) => [p.slug, p]));
-        $("home-tag").textContent = AUTORE + " · " + count(poems.length);
+        $("home-tag").textContent = poems.length ? AUTORE + " · " + poems.length : AUTORE;
         search.closest(".search").hidden = poems.length < 6; // con poche poesie la ricerca non serve
         $("random").hidden = $("random-hero").hidden = poems.length < 2;
         document.querySelector(".order").hidden = poems.length < 2;
