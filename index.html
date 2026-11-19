@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>Poesie · Elisa Genesio</title>
+        <meta name="description" content="Poesie di Elisa Genesio." />
+        <meta name="author" content="Elisa Genesio" />
+        <meta name="copyright" content="© 2026 Elisa Genesio. Tutti i diritti riservati." />
+        <link rel="canonical" href="https://poesie.egenesio.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="it_IT" />
+        <meta property="og:title" content="Poesie · Elisa Genesio" />
+        <meta property="og:url" content="https://poesie.egenesio.com/" />
+        <!-- su ogni poesia app.js lo sostituisce con un CreativeWork -->
+        <script type="application/ld+json" id="ld">
+            {
+                "@context": "https://schema.org",
+                "@type": "CollectionPage",
+                "name": "Poesie",
+                "url": "https://poesie.egenesio.com/",
+                "inLanguage": "it",
+                "author": { "@type": "Person", "name": "Elisa Genesio", "url": "https://egenesio.com" },
+                "copyrightHolder": { "@type": "Person", "name": "Elisa Genesio" },
+                "copyrightYear": 2026
+            }
+        </script>
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="icons/favicon.ico" sizes="16x16 32x32 48x48" />
+        <link rel="icon" type="image/svg+xml" href="icons/favicon.svg" />
+        <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+        <script>
+            /* tema prima del primo paint: scelta salvata, altrimenti quella di sistema */
+            (function () {
+                var t;
+                try {
+                    t = localStorage.getItem("theme");
+                } catch (e) {}
+                if (t !== "light" && t !== "dark")
+                    t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", t);
+            })();
+        </script>
+        <link rel="preload" href="fonts/syne-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="fonts/dm-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="js/theme.js" defer></script>
+        <script src="js/app.js" defer></script>
+    </head>
+    <body>
+        <a class="skip" href="#main">Vai al contenuto</a>
+
+        <nav class="nav" aria-label="Principale">
+            <a href="./" class="nav__logo" aria-label="Poesie, indice">
+                <svg class="nav__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 6.5 11 12l-5.5 5.5" /><rect class="nav__cursor" x="13" y="15.2" width="7" height="2.6" rx="0.8" /></svg>poesie
+            </a>
+            <div class="nav__links">
+                <a href="./" class="nav__btn nav__text" data-nav="indice">Indice</a>
+                <button type="button" class="nav__btn nav__text" id="random">A caso</button>
+                <button type="button" class="nav__btn nav__icon" id="theme-toggle" aria-label="Cambia tema chiaro o scuro">
+                    <span class="theme-icon"
+                        ><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg
+                        ><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4" />
+                            <path
+                                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg
+                    ></span>
+                </button>
+            </div>
+            <div class="progress" aria-hidden="true"><i></i></div>
+        </nav>
+
+        <main id="main" tabindex="-1">
+            <noscript><p class="lede">Per leggere le poesie serve JavaScript attivo.</p></noscript>
+            <!-- INDICE -->
+            <section class="view view--home" id="home" hidden>
+                <header class="hero">
+                    <p class="tag" id="home-tag">Elisa Genesio</p>
+                    <h1 class="display"><span>Pensieri</span><span><em>terminali</em></span></h1>
+                    <p class="lede">
+                        Una raccolta di poesie scritte nel tempo. Da leggere piano, una alla volta.
+                    </p>
+                    <div class="actions">
+                        <a class="btn" id="start" href="./">Inizia a leggere</a>
+                        <button type="button" class="btn btn--ghost" id="random-hero">Una a caso</button>
+                    </div>
+                </header>
+
+                <div class="index">
+                    <div class="index__head">
+                        <h2 class="label">Indice</h2>
+                        <div class="order" role="group" aria-label="Ordine dell'indice">
+                            <button type="button" data-order="old" aria-pressed="true">Meno recenti</button>
+                            <button type="button" data-order="new" aria-pressed="false">Più recenti</button>
+                        </div>
+                        <label class="search">
+                            <span class="sr-only">Cerca tra le poesie</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+                            <input type="search" id="search" placeholder="Cerca un titolo o un verso" autocomplete="off" />
+                        </label>
+                    </div>
+                    <ol class="rows" id="list"></ol>
+                    <p class="empty" id="empty" hidden></p>
+                </div>
+            </section>
+
+            <!-- LETTURA -->
+            <article class="view view--poem" id="poem" hidden>
+                <header class="poem__head">
+                    <p class="tag" id="poem-tag"></p>
+                    <h1 class="poem__title" id="poem-title"></h1>
+                    <p class="poem__meta label">
+                        <span>di Elisa Genesio</span><time id="poem-written"></time><time id="poem-published"></time>
+                    </p>
+                </header>
+                <div class="poem__text" id="poem-text"></div>
+                <nav class="poem__nav rows" aria-label="Altre poesie" id="poem-nav"></nav>
+            </article>
+
+            <!-- NON TROVATA -->
+            <section class="view view--missing" id="missing" hidden>
+                <p class="tag">Pagina non trovata</p>
+                <h1 class="poem__title">Qui non c'è <em>niente</em></h1>
+                <p class="lede">Forse il titolo è cambiato. Torna all'indice per cercarla.</p>
+                <div class="actions"><a class="btn" href="./">Vai all'indice</a></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 Elisa Genesio — Tutti i diritti riservati.</p>
+            <a href="https://egenesio.com">egenesio.com ↗</a>
+        </footer>
+    </body>
+</html>
